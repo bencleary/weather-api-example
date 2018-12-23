@@ -1,0 +1,22 @@
+
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="check weather"/>
+</form>
+
+<hr/>
+
+{% if api_response %}
+
+    <pre>
+        <code>
+            {{ api_response }}
+        </code>
+    </pre>
+
+{% else %}
+
+    <p>No City Entered</p>
+
+{% endif %}
