@@ -8,8 +8,9 @@
     <input type="text" id="city" name="city" required/>
     <button class="btn btn-primary" id='check-weather'>Check</button
 
-    <div class="" id='message'>
-        <img id='weather-icon' src='http://openweathermap.org/img/w/10d.png'/>
+    <div class="row" id='message'>
+        <h3 id='weather-title'></h3>
+        <img id='weather-icon' src=''/>
 
     </div
 
@@ -30,6 +31,7 @@
                     let city = $('#city').val();
                     axios.post('/weather', {'city': city}).then(res => {
                         $('#weather-icon').attr('src', 'http://openweathermap.org/img/w/' + res.data.weather[0].icon + '.png')
+                        $('#weather-title').text(res.data.weather[0].main)
                         $('#check-weather').text('Check');
                     }).catch(err => {
                         console.log(err);
