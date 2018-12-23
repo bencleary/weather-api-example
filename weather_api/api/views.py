@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views import View
 from .forms import WeatherForm
 from django.conf import settings
 import requests
+import json
 
 
 class WeatherAPI(View):
@@ -24,9 +25,6 @@ class WeatherAPI(View):
         return render(request, self.template_name, {'form': form})
     
     def post(self, request):
-        form = self.form(request.POST)
-        if form.is_valid():
-            api_response = self.fetch_api_data(form.cleaned_data['city'])
-        else:
-            api_response = None
-        return render(request, self.template_name, {'form': form, 'api_response': api_response})
+        if request.body != None:
+            api_response = self.fetch_api_data(json.loads(request.body).get('city', 'London,UK'))
+            return HttpResponse(json.dumps(api_response))

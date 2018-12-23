@@ -1,22 +1,43 @@
 
-<form method="POST">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="check weather"/>
-</form>
+{% extends 'base.html' %}
 
-<hr/>
+{% block app %}
 
-{% if api_response %}
+<div class="container">
 
-    <pre>
-        <code>
-            {{ api_response }}
-        </code>
-    </pre>
+    <input type="text" id="city" name="city" required/>
+    <button class="btn btn-primary" id='check-weather'>Check</button
 
-{% else %}
+    <div class="" id='message'>
+        <img id='weather-icon' src='http://openweathermap.org/img/w/10d.png'/>
 
-    <p>No City Entered</p>
+    </div
 
-{% endif %}
+</div>
+
+
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+
+        $(document).ready(() => {
+            $('#check-weather').on('click', () => {
+                $('#check-weather').html('Checking <i class="fas fa-spinner fa-spin"></i>');
+                setTimeout(() => {
+                    let city = $('#city').val();
+                    axios.post('/weather', {'city': city}).then(res => {
+                        $('#weather-icon').attr('src', 'http://openweathermap.org/img/w/' + res.data.weather[0].icon + '.png')
+                        $('#check-weather').text('Check');
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }, 1000);
+                
+            })
+        })
+    </script>
+
+{% endblock %}

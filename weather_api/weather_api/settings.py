@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'api'
 ]
 
-API_KEY = ""
+API_KEY = "da0974e7c13193a6939ac1f73691dfdb"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
