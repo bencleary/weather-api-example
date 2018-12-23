@@ -11,6 +11,7 @@ class WeatherAPI(View):
     form = WeatherForm
 
     def fetch_api_data(self, city):
+        # personally i would use ajax to make this call
         try:
             response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={settings.API_KEY}")
             response.raise_for_status()
