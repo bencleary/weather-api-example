@@ -4,6 +4,7 @@ from .forms import WeatherForm
 from django.conf import settings
 import requests
 import json
+from .decorators import say_hi
 
 
 class WeatherAPI(View):
@@ -19,7 +20,8 @@ class WeatherAPI(View):
             return response.json()
         except Exception as e:
             return e
-        
+    
+    @say_hi
     def get(self, request):
         form = self.form()
         return render(request, self.template_name, {'form': form})
